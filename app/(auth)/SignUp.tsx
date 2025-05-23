@@ -4,11 +4,16 @@ import Colors from '@/data/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
+import { Image, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-
+import { auth } from '@/configs/FirebaseConfig';
 import { useRouter } from 'expo-router';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+import { cld, options } from '@/configs/CloudinaryConfig';
+import { upload } from 'cloudinary-react-native';
+
+import axios from 'axios';
 
 export default function SignUp() {
 
@@ -24,8 +29,49 @@ export default function SignUp() {
 
 
     const onBtnPress = () => {
-        console.log("button press");
+        if(!email || !password|| !fullName)
+        {
+            ToastAndroid.show('Please enter all details!', ToastAndroid.BOTTOM)
+            return;
+        }
 
+        setLoading(true);
+
+        createUserWithEmailAndPassword(auth,email,password)
+        .then(async(userCredentails)=>{
+            console.log(userCredentails);
+            // Upload Profile Image
+                await upload(cld,{
+                    file:profileImage,
+                    options:options,
+                    callback:async(error:any,response:any)=>{
+                         setLoading(false);
+                        if(error)
+                        {
+                            console.log(error);
+                        }
+                        if(response)
+                        {
+                            console.log(response?.url)
+                            const result=await axios.post(process.env.EXPO_PUBLIC_HOST_URL+"/user",{
+                                name:fullName,
+                                email:email,
+                                image:response?.url
+                            })
+
+                            console.log(result);
+                            // Route to Home Screen
+                            router.push('/landing');
+                        }
+                    }
+                })
+            // Save To Database
+            
+            
+        }).catch((error)=>{
+            const errorMsg=error?.message
+            ToastAndroid.show(errorMsg,ToastAndroid.BOTTOM)
+        })
     }
 
 
