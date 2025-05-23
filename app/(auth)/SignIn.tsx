@@ -1,6 +1,6 @@
 import Button from '@/components/Shared/Button'
 import TextInputField from '@/components/Shared/TextInputField'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Image, Text, ToastAndroid, View } from 'react-native'
 
 import { auth } from '@/configs/FirebaseConfig'
@@ -9,7 +9,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import axios from 'axios'
 
-// import { AuthContext } from '@/context/AuthContext'
+import { AuthContext } from '@/context/AuthContext'
 
 export default function SignIn() {
 
@@ -19,6 +19,8 @@ export default function SignIn() {
   const [password, setPassword] = useState<string | undefined>()
 
   const [loading, setLoading] = useState(false);
+
+  const { user,setUser }=useContext(AuthContext)
 
   // const {user,setUser}=useContext(AuthContext)
 
@@ -36,6 +38,7 @@ export default function SignIn() {
         // API call to fetch user Data
         const result=await axios.get(process.env.EXPO_PUBLIC_HOST_URL+"/user?email="+resp.user?.email)
         console.log(result.data);
+        setUser(result?.data)
         // Save to Context to share acorss application
       }
       setLoading(false)

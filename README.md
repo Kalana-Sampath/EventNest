@@ -24,4 +24,8 @@ npm i node-postgres
 npm i axios
 
 
+#### Error 
+    video time -: 1:55:00
+    if the create the account not save in the index and when the reload the app not directly go to the Home(tabs) screen
+
 

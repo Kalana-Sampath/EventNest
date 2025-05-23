@@ -5,7 +5,7 @@ import { ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 type ButoonProps = {
     text: string,
     onPress: () => void,
-    loading: boolean
+    loading?: boolean
 }
 
 export default function Button({ text, onPress, loading = false }: ButoonProps) {
@@ -13,10 +13,13 @@ export default function Button({ text, onPress, loading = false }: ButoonProps) 
         <TouchableOpacity
             onPress={!loading ? onPress : undefined}
             style={{
-                padding: 15,
+
+                padding: 20,
                 backgroundColor: Colors.PRIMARY,
                 marginTop: 10,
-                borderRadius: 10,
+                marginLeft: 12,
+                marginRight: 12,
+                borderRadius: 40,
                 opacity: loading ? 0.7 : 1,
             }}
             disabled={loading}
