@@ -39,4 +39,4 @@ npm i react-native-dropdown-picker
 
 
 
-video pause time -: 2:09:58
+video pause time -: 2:54:08
