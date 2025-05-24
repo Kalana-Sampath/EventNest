@@ -1,10 +1,10 @@
-// import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
 import Colors from '@/data/Colors';
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Image, Text, View } from 'react-native';
 
 export default function Header() {
-        // const { user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
   return (
     <View style={{
@@ -31,12 +31,12 @@ export default function Header() {
 
       </View>
 
-      {/* <Image
+      <Image
         source={{ uri: user?.image }} style={{
             width: 40,
             height: 40,
             borderRadius: 99
-        }} /> */}
+        }} />
 
     </View>
   )

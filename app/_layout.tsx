@@ -14,7 +14,7 @@ export default function RootLayout() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
     <Stack>
-    <Stack.Screen name="landing"
+    {/* <Stack.Screen name="landing"
         options={{
           headerShown: false,
         }}
@@ -32,12 +32,17 @@ export default function RootLayout() {
           headerTransparent: true,
           headerTitle: ''
         }}
-        />
+        /> */}
 
          <Stack.Screen name="(tabs)"
         options={{
-          headerShown: false,
-          headerTitle: ''
+          headerShown: false
+        }}
+        />
+        
+        <Stack.Screen name="add-post/index"
+        options={{
+          headerTitle: 'Add New Post'
         }}
         />
         

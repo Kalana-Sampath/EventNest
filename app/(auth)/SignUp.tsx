@@ -68,7 +68,7 @@ export default function SignUp() {
                             })
                             console.log(result);
                             // Route to Home Screen
-                            router.push('/landing');
+                            router.push('/');
                             setLoading(false)
                             
                         }
